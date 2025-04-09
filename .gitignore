@@ -1,0 +1,62 @@
+# Python specific
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+
+# FastAPI specific
+*.log
+*.pid
+*.gz
+
+# Coverage reports
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Docker specific
+*.log
+*.swp
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+.env/
+env.bak/
+
+# Distribution files
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# IDEs and editors
+.idea/
+*.swp
+*.swo
+.vscode/
+
+# Testing and linting
+pytestdebug.log
+mypy_cache/
+pylint.log
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Cache
+*.cache
+*.sqlite3
