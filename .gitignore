@@ -60,3 +60,7 @@ Thumbs.db
 # Cache
 *.cache
 *.sqlite3
+
+# datas
+logs/
+tests/
