@@ -60,9 +60,9 @@
 
 3. **ORM Configuration:**
 
-   - [ ] Implement SQLAlchemy models
-   - [ ] Configure relationships between entities
-   - [ ] Create Pydantic schemas for validation
+   - [x] Implement SQLAlchemy models
+   - [x] Configure relationships between entities
+   - [x] Create Pydantic schemas for validation
 
 4. **Basic API:**
 
