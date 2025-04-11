@@ -2,19 +2,28 @@ name: WheelsAPI-Docker
 
 services:
   database:
-    image: postgres:17
+    image: postgres:17-bookworm
+    container_name: db_postgres
     environment:
       POSTGRES_DB: wheelsDB
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 4845d91eb156d325aa6da14f6
     volumes:
-      - database_data: /var/lib/postgres
+      - postgres_data:/var/lib/postgres/data
     ports:
       - 5433:5432
 
-  # application:
-  #   depends_on:
-  #     - database
+  application:
+    image: wheelsapi:0.0.1
+    build: .
+    entrypoint: ./entrypoint.sh
+    container_name: application_wheelsapi
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:4845d91eb156d325aa6da14f6@db_postgres:5432/wheelsDB
 
 volumes:
-  database_data:
+  postgres_data:

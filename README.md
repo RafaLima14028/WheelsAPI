@@ -53,10 +53,10 @@
 
 2. **Database Design:**
 
-   - [ ] Design entity-relationship model for vehicles, users, sales
-     - [ ] Save images
-   - [ ] Configure relational database (PostgreSQL)
-   - [ ] Implement migrations with Alembic
+   - [x] Design entity-relationship model for vehicles, users and sales
+     - [x] Save images as Base64
+   - [x] Implement migrations with Alembic
+   - [x] Configure the PostgreSQL Docker image 
 
 3. **ORM Configuration:**
 
@@ -155,7 +155,9 @@ WheelsAPI/
 │   │   └── logging.py
 │   ├── models/
 │   │   ├── __init__.py
-│   │   └── item.py
+│   │   ├── sales.py
+│   │   ├── users.py
+│   │   └── vehicles.py
 │   ├── schemas/
 │   │   ├── __init__.py
 │   │   └── item.py
