@@ -1,10 +1,9 @@
 from fastapi import FastAPI
-import uvicorn
 from contextlib import asynccontextmanager
 
 from loguru import logger
 
-from schemas.generic import Message
+from .schemas.generic import Message
 
 
 logger.add(
@@ -33,8 +32,4 @@ app = FastAPI(
 
 @app.get("/", response_model=Message)
 def home():
-    return Message(message='Hello!!!')
-
-
-if __name__ == '__main__':
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    return Message(message='Hello, World!!!')

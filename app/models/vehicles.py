@@ -1,7 +1,18 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.dialects.postgresql import ENUM
+
+from enum import Enum
 
 from ..db.session import Base
+
+
+class TypesVehicle(str, Enum):
+    car = "car"
+    truck = "truck"
+    bus = "bus"
+    bike = "bike"
+    jet_ski = "jet ski"
 
 
 @Base.mapped_as_dataclass
@@ -27,6 +38,11 @@ class Vehicle:
     color: Mapped[str] = mapped_column(nullable=False)
     year_manufacture: Mapped[int] = mapped_column(nullable=False)
     year_model: Mapped[int] = mapped_column(nullable=False)
+    plate: Mapped[str] = mapped_column(nullable=False)
+    type: Mapped[TypesVehicle] = mapped_column(
+        ENUM(TypesVehicle, create_type=True, name="types_vehicle"),
+        nullable=False
+    )
     id_user: Mapped[int] = mapped_column(ForeignKey('users.id'))
     id_img: Mapped[list[int]] = mapped_column(
         ForeignKey('vehicles_img.id'), nullable=True

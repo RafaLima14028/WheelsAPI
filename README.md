@@ -66,7 +66,7 @@
 
 4. **Basic API:**
 
-   - [ ] Upgrade database to add type of vehicles
+   - [x] Upgrade database to add type of vehicles
    - [ ] Implement CRUD endpoints for vehicles, users and sales
      - **Users:**
        - [ ] Create user
