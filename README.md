@@ -56,7 +56,7 @@
    - [x] Design entity-relationship model for vehicles, users and sales
      - [x] Save images as Base64
    - [x] Implement migrations with Alembic
-   - [x] Configure the PostgreSQL Docker image 
+   - [x] Configure the PostgreSQL Docker image
 
 3. **ORM Configuration:**
 
@@ -66,13 +66,33 @@
 
 4. **Basic API:**
 
-   - [ ] Implement CRUD endpoints for vehicles
+   - [ ] Upgrade database to add type of vehicles
+   - [ ] Implement CRUD endpoints for vehicles, users and sales
+     - **Users:**
+       - [ ] Create user
+       - [ ] Update user
+       - [ ] Delete user
+       - [ ] Get user by ID
+     - **Vehicles:**
+       - [ ] Create vehicle
+       - [ ] Update vehicle
+       - [ ] Delete vehicle
+       - [ ] Get vehicle by id
+       - [ ] Get vehicles by user
+       - [ ] Get vehicles by type
+       - [ ] Get vehicles by year
+     - **Sales:**
+       - [ ] Create ad
+       - [ ] Update info about ad
+       - [ ] Update ad to sold
+       - [ ] Delete ad
    - [ ] Configure FastAPI routers organized by domain
    - [ ] Document API with Swagger/OpenAPI
 
 5. **Authentication and Authorization:**
 
-   - [ ] Implement user registration and login
+   - [ ] Implement JWT
+   - [ ] Implement endpoints for auth
    - [ ] Configure JWT system with refresh tokens
    - [ ] Define access levels (buyers, sellers, admin)
 
