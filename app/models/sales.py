@@ -11,10 +11,14 @@ class Sale:
     __tablename__ = 'sales'
 
     id: Mapped[int] = mapped_column(
-        primary_key=True, index=True, autoincrement=True
+        primary_key=True,
+        index=True,
+        autoincrement=True,
+        init=False
     )
     id_vehicle: Mapped[int] = mapped_column(
-        ForeignKey('vehicles.id'), nullable=False
+        ForeignKey('vehicles.id'),
+        nullable=False
     )
     value: Mapped[float] = mapped_column(nullable=False)
     value_fipe: Mapped[float] = mapped_column(nullable=False)

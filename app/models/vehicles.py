@@ -20,7 +20,10 @@ class VehicleImg:
     __tablename__ = 'vehicles_img'
 
     id: Mapped[int] = mapped_column(
-        primary_key=True, index=True, autoincrement=True
+        primary_key=True,
+        index=True,
+        autoincrement=True,
+        init=False
     )
     img_base64: Mapped[str] = mapped_column()
 
@@ -30,7 +33,10 @@ class Vehicle:
     __tablename__ = 'vehicles'
 
     id: Mapped[int] = mapped_column(
-        primary_key=True, index=True, autoincrement=True
+        primary_key=True,
+        index=True,
+        autoincrement=True,
+        init=False
     )
     brand: Mapped[str] = mapped_column(nullable=False)
     model: Mapped[str] = mapped_column(nullable=False)

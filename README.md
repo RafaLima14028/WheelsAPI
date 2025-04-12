@@ -69,10 +69,10 @@
    - [x] Upgrade database to add type of vehicles
    - [ ] Implement CRUD endpoints for vehicles, users and sales
      - **Users:**
-       - [ ] Create user
-       - [ ] Update user
-       - [ ] Delete user
-       - [ ] Get user by ID
+       - [x] Create user
+       - [x] Update user
+       - [x] Delete user
+       - [x] Get user by ID
      - **Vehicles:**
        - [ ] Create vehicle
        - [ ] Update vehicle
@@ -84,7 +84,6 @@
      - **Sales:**
        - [ ] Create ad
        - [ ] Update info about ad
-       - [ ] Update ad to sold
        - [ ] Delete ad
    - [ ] Configure FastAPI routers organized by domain
    - [ ] Document API with Swagger/OpenAPI

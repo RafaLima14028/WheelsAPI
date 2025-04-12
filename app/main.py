@@ -3,7 +3,11 @@ from contextlib import asynccontextmanager
 
 from loguru import logger
 
-from .schemas.generic import Message
+from app.schemas.generic import Message
+
+from app.api.users import router as router_users
+from app.api.vehicles import router as router_vehicles
+from app.api.sales import router as router_sales
 
 
 logger.add(
@@ -27,9 +31,11 @@ app = FastAPI(
     lifespan=app_lifespan
 )
 
-# app.include_router()
+app.include_router(router_users)
+app.include_router(router_vehicles)
+app.include_router(router_sales)
 
 
 @app.get("/", response_model=Message)
 def home():
-    return Message(message='Hello, World!!!')
+    return Message(message='Hello, World!')
