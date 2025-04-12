@@ -20,15 +20,17 @@ services:
       context: .
       dockerfile: Dockerfile
     entrypoint: ./entrypoint.sh
-    volumes:
-      - ./app:/app
     ports:
       - "8000:8000"
     depends_on:
       - database
     environment:
       DATABASE_URL: postgresql+psycopg2://postgres:4845d91eb156d325aa6da14f6@db_postgres:5432/wheelsDB
-    restart: on-failure
+    develop:
+      watch:
+        - action: sync
+          path: ./app
+          target: /WheelsAPI/app
 
 volumes:
   postgres_data:
