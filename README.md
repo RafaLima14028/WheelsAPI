@@ -74,19 +74,20 @@
        - [x] Delete user
        - [x] Get user by ID
      - **Vehicles:**
-       - [ ] Create vehicle
-       - [ ] Update vehicle
-       - [ ] Delete vehicle
-       - [ ] Get vehicle by id
-       - [ ] Get vehicles by user
-       - [ ] Get vehicles by type
-       - [ ] Get vehicles by year
+       - [x] Create vehicle
+       - [x] Update vehicle
+       - [x] Delete vehicle
+       - [x] Get vehicle by id
+       - [x] Get vehicles by user
+       - [x] Get vehicles by type
+       - [x] Get vehicles by year
      - **Sales:**
        - [ ] Create ad
        - [ ] Update info about ad
        - [ ] Delete ad
    - [ ] Configure FastAPI routers organized by domain
    - [ ] Document API with Swagger/OpenAPI
+   - [ ] Fild email in user will be validate
 
 5. **Authentication and Authorization:**
 
@@ -157,6 +158,20 @@
       - [ ] Configure the application
     - [ ] Prepare for deployment in production environments
 
+## How to Run:
+
+1. Clone the repository.
+
+2. Create a `.env` file with the required variables.
+
+3. Build and start the application using Docker:
+
+```bash
+docker compose up --build
+```
+
+4. Access the API documentation at `http://localhost:8000/docs`.
+
 ## Structure of Project:
 
 This repository follows a modular and scalable architecture to ensure ease of development and maintainability. Below is an overview of the purpose of each folder and file:
@@ -167,74 +182,82 @@ WheelsAPI/
 ├── app/
 │   ├── main.py
 │   ├── api/
-│   │   ├── __init__.py
-│   │   └── items.py
+│   │   ├── sales.py
+│   │   ├── users.py
+│   │   └── vehicles.py
 │   ├── core/
-│   │   ├── __init__.py
+│   │   ├── securrity.py
 │   │   └── logging.py
 │   ├── models/
-│   │   ├── __init__.py
 │   │   ├── sales.py
 │   │   ├── users.py
 │   │   └── vehicles.py
 │   ├── schemas/
-│   │   ├── __init__.py
-│   │   └── item.py
+│   │   ├── generic.py
+│   │   ├── sales.py
+│   │   ├── users.py
+│   │   └── vehicles.py
 │   ├── crud/
-│   │   ├── __init__.py
-│   │   └── item.py
+│   │   ├── users.py
+│   │   └── vehicles.py
 │   └── db/
-│       ├── __init__.py
 │       └── session.py
 ├── tests/
-│       ├── __init__.py
 │       └── test.py
+├── logs/
+│       └── file_log.log
+├── migrations/
+│       ├── versions/
+│       ├── env.py
+│       └── README
 ├── .env
 ├── .gitignore
 ├── .python-version
+├── .dockerignore
 ├── docker-compose.yaml
 ├── Dockerfile
+├── entrypoint.sh
+├── alembic.ini
 ├── README.md
 └── requirements.txt
 ```
 
-### Folders
+### Folder and File Overview
 
-- **`.venv/`**  
-  Contains the virtual environment for the project, including all installed dependencies.
+#### **Core Folders:**
 
-- **`app/`**  
-  The core of the application, containing all the business logic, API routes, database models, schemas, and more. It is structured into subdirectories for clarity:
+- `app/`: The application folder, structured into modular components for easy development and scaling.
 
-  - **`api/`**: Handles API routing and controller logic.
-  - **`core/`**: Includes configuration and core application setup.
-  - **`models/`**: Defines the database models.
-  - **`schemas/`**: Contains Pydantic schemas for request validation and response formatting.
-  - **`crud/`**: Implements Create, Read, Update, and Delete (CRUD) operations for the models.
-  - **`db/`**: Manages the database connection and session handling.
+  - `api/`: API routes and controllers.
 
-- **`tests/`**  
-  Contains unit and integration tests for the application to ensure functionality and reliability.
+  - `core/`: Configuration and core setup files.
 
-### Files
+  - `models/`: Database models defined with SQLAlchemy.
 
-- **`.env`**  
-  Stores environment variables for the application, such as database connection strings and secret keys.
+  - `schemas/`: Pydantic schemas for data validation.
 
-- **`.gitignore`**  
-  Specifies files and directories that should be ignored by Git to prevent sensitive or unnecessary files from being tracked.
+  - `crud/`: Handles Create, Read, Update, Delete operations.
 
-- **`.python-version`**  
-  Defines for the Pyenv version used in the project to maintain consistency across environments.
+  - `db/`: Database session and connection management.
 
-- **`docker-compose.yaml`**  
-  Used to define and manage multi-container Docker applications, including the API and any associated services like databases.
+- `logs/`: Contains runtime log files for monitoring and debugging.
 
-- **`Dockerfile`**  
-  Contains the instructions for building the Docker image for the application.
+- `migrations/`: Database migration scripts and configurations.
 
-- **`README.md`**  
-  Provides an overview of the project, including its purpose, usage, and structure (this file).
+- `tests/`: Unit and integration test cases for the application.
 
-- **`requirements.txt`**  
-  Lists all Python dependencies required by the project.
+#### **Core Files:**
+
+- `.env`: Stores environment variables.
+
+- `.gitignore`: Specifies files to ignore in Git.
+
+- `.dockerignore`: Optimizes the Docker build process by excluding unnecessary files.
+
+- `entrypoint.sh`: Docker container initialization script.
+
+- `alembic.ini`: Alembic configuration file.
+
+- `README.md`: Project overview and documentation.
+
+- `requirements.txt`: Python dependencies.

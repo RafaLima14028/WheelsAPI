@@ -16,19 +16,6 @@ class TypesVehicle(str, Enum):
 
 
 @Base.mapped_as_dataclass
-class VehicleImg:
-    __tablename__ = 'vehicles_img'
-
-    id: Mapped[int] = mapped_column(
-        primary_key=True,
-        index=True,
-        autoincrement=True,
-        init=False
-    )
-    img_base64: Mapped[str] = mapped_column()
-
-
-@Base.mapped_as_dataclass
 class Vehicle:
     __tablename__ = 'vehicles'
 
@@ -50,6 +37,20 @@ class Vehicle:
         nullable=False
     )
     id_user: Mapped[int] = mapped_column(ForeignKey('users.id'))
-    id_img: Mapped[list[int]] = mapped_column(
-        ForeignKey('vehicles_img.id'), nullable=True
+
+
+@Base.mapped_as_dataclass
+class VehicleImg:
+    __tablename__ = 'vehicles_img'
+
+    id: Mapped[int] = mapped_column(
+        primary_key=True,
+        index=True,
+        autoincrement=True,
+        init=False
+    )
+    img_base64: Mapped[str] = mapped_column()
+    id_vehicle: Mapped[int] = mapped_column(
+        ForeignKey('vehicles.id'),
+        nullable=False
     )
