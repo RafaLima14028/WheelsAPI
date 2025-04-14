@@ -67,7 +67,7 @@
 4. **Basic API:**
 
    - [x] Upgrade database to add type of vehicles
-   - [ ] Implement CRUD endpoints for vehicles, users and sales
+   - [x] Implement CRUD endpoints for vehicles, users and sales
      - **Users:**
        - [x] Create user
        - [x] Update user
@@ -82,12 +82,13 @@
        - [x] Get vehicles by type
        - [x] Get vehicles by year
      - **Sales:**
-       - [ ] Create ad
-       - [ ] Update info about ad
-       - [ ] Delete ad
-   - [ ] Configure FastAPI routers organized by domain
+       - [x] Create ad
+       - [x] Update info about ad
+       - [x] Delete ad
+       - [x] Get ad
    - [ ] Document API with Swagger/OpenAPI
-   - [ ] Fild email in user will be validate
+   - [x] Fild email in user will be validate
+   - [x] Update user not do hash in password
 
 5. **Authentication and Authorization:**
 

@@ -14,7 +14,7 @@ services:
       - "5433:5432"
 
   application:
-    image: wheelsapi:0.0.1
+    image: wheelsapi:0.0.2
     container_name: application_wheelsapi
     build:
       context: .

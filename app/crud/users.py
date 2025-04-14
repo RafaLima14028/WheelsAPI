@@ -39,7 +39,12 @@ def update_user_in_db(user_id: int, user: UserUpdate, session: Session) -> UserR
 
     update_datas = user.dict(exclude_unset=True)
 
-    print(update_datas)
+    if 'password' in update_datas.keys():
+        password_hashed = hash_password(user.password)
+
+        user_db.password = password_hashed
+
+        del update_datas['password']
 
     for key, value in update_datas.items():
         setattr(user_db, key, value)
