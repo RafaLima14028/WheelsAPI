@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from http import HTTPStatus
 
 from sqlalchemy.orm import Session
 
@@ -19,12 +20,20 @@ from app.crud.vehicles import (
     get_vehicle_by_type_in_db,
     get_vehicle_by_year_in_db
 )
+from app.core.errors.vehicles_errors import (
+    NOT_FOUND_RESPONSE,
+    UNPROCESSABLE_ENTITY_RESPONSE,
+    INTERNAL_SERVER_ERROR_RESPONSE
+)
 
 
 router = APIRouter(prefix="/vehicles", tags=["Vehicles"])
 
 
-@router.post("/", response_model=VehicleResponse)
+@router.post("/", response_model=VehicleResponse, responses={
+    **NOT_FOUND_RESPONSE,
+    **UNPROCESSABLE_ENTITY_RESPONSE
+})
 def create_vehicle(
     vehicle: VehicleCreateRequest,
     session: Session = Depends(get_db)
@@ -38,7 +47,10 @@ def create_vehicle(
     return vehicle_db
 
 
-@router.patch("/{vehicle_id}/", response_model=VehicleUpdate)
+@router.patch("/{vehicle_id}/", response_model=VehicleUpdate, responses={
+    **NOT_FOUND_RESPONSE,
+    **INTERNAL_SERVER_ERROR_RESPONSE
+})
 def update_vehicle(
     vehicle_id: int,
     vehicle: VehicleUpdate,
@@ -49,35 +61,46 @@ def update_vehicle(
     return vehicle_db
 
 
-@router.delete("/{vehicle_id}/", response_model=Message)
+@router.delete("/{vehicle_id}/", response_model=Message, responses={
+    **NOT_FOUND_RESPONSE,
+    **INTERNAL_SERVER_ERROR_RESPONSE
+})
 def delete_vehicle(vehicle_id: int, session: Session = Depends(get_db)):
     delete_vehicle_in_db(vehicle_id, session)
 
     return Message(message='Vehicle deleted with successfully!')
 
 
-@router.get("/{vehicle_id}/", response_model=VehicleResponse)
+@router.get("/{vehicle_id}/", response_model=VehicleResponse, responses={
+    **NOT_FOUND_RESPONSE
+})
 def get_vehicle_by_id(vehicle_id: int, session: Session = Depends(get_db)):
     vehicle_db = get_vehicle_by_id_in_db(vehicle_id, session)
 
     return vehicle_db
 
 
-@router.get("/get-by-userid/{user_id}/", response_model=list[VehicleResponse])
+@router.get("/get-by-userid/{user_id}/", response_model=list[VehicleResponse], responses={
+    **NOT_FOUND_RESPONSE
+})
 def get_vehicle_by_user(user_id: int, session: Session = Depends(get_db)):
     vehicles_db = get_vehicle_by_user_in_db(user_id, session)
 
     return vehicles_db
 
 
-@router.get("/get-by-type/{type_vehicle}/", response_model=list[VehicleResponse])
+@router.get("/get-by-type/{type_vehicle}/", response_model=list[VehicleResponse], responses={
+    **NOT_FOUND_RESPONSE
+})
 def get_vehicle_by_type(type_vehicle: TypesVehicle, session: Session = Depends(get_db)):
     vehicles_db = get_vehicle_by_type_in_db(type_vehicle, session)
 
     return vehicles_db
 
 
-@router.get("/get-by-year/{year}/", response_model=list[VehicleResponse])
+@router.get("/get-by-year/{year}/", response_model=list[VehicleResponse], responses={
+    **NOT_FOUND_RESPONSE
+})
 def get_vehicle_by_year(year: int, session: Session = Depends(get_db)):
     vehicles_db = get_vehicle_by_year_in_db(year, session)
 

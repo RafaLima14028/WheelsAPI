@@ -66,7 +66,7 @@ def create_vehicle_in_db(
 
         raise HTTPException(
             status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
-            detail=f"Unable to process the provided data!"
+            detail="Unable to process the provided data!"
         )
 
 
@@ -96,12 +96,12 @@ def update_vehicle_in_db(
         session.refresh(vehicle_db)
 
         return vehicle_db
-    except Exception as e:
+    except Exception:
         session.rollback()
 
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
-            detail=f'An error has occurred!'
+            detail='An error has occurred!'
         )
 
 
@@ -131,12 +131,12 @@ def delete_vehicle_in_db(vehicle_id: int, session: Session) -> bool:
         session.commit()
 
         return True
-    except Exception as e:
+    except Exception:
         session.rollback()
 
         raise HTTPException(
             status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
-            detail=f'An error has occurred!'
+            detail='An error has occurred!'
         )
 
 

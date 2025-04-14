@@ -86,7 +86,7 @@
        - [x] Update info about ad
        - [x] Delete ad
        - [x] Get ad
-   - [ ] Document API with Swagger/OpenAPI
+   - [x] Document API with Swagger/OpenAPI
    - [x] Fild email in user will be validate
    - [x] Update user not do hash in password
 

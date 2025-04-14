@@ -14,6 +14,7 @@ from app.crud.users import (
     delete_user_in_db,
     get_user_by_id_in_db
 )
+from app.core.errors.users_errors import NOT_FOUND_RESPONSE
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -26,7 +27,9 @@ def create_user(user_data: UserCreate, session: Session = Depends(get_db)):
     return user_db
 
 
-@router.patch("/{user_id}/", response_model=UserResponse)
+@router.patch("/{user_id}/", response_model=UserResponse, responses={
+    **NOT_FOUND_RESPONSE
+})
 def update_user(
     user_id: int,
     user_data: UserUpdate,
@@ -37,7 +40,9 @@ def update_user(
     return user_db
 
 
-@router.delete("/{user_id}/", response_model=Message)
+@router.delete("/{user_id}/", response_model=Message, responses={
+    **NOT_FOUND_RESPONSE
+})
 def delete_user(user_id: int, session: Session = Depends(get_db)):
     delete_user_in_db(user_id, session)
 
@@ -45,14 +50,7 @@ def delete_user(user_id: int, session: Session = Depends(get_db)):
 
 
 @router.get("/{user_id}/", response_model=UserResponse, responses={
-    404: {
-        'description': 'User not exists in database!',
-        'content': {
-            'application/json': {
-                'example': {'detail': 'This user not exists!'}
-            }
-        }
-    }
+    **NOT_FOUND_RESPONSE
 })
 def get_user_by_id(user_id: int, session: Session = Depends(get_db)):
     user_db = get_user_by_id_in_db(user_id, session)

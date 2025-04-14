@@ -34,7 +34,7 @@ def update_user_in_db(user_id: int, user: UserUpdate, session: Session) -> UserR
     if not user_db:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
-            detail='This user not exists!'
+            detail='This user does not exist!'
         )
 
     update_datas = user.dict(exclude_unset=True)
@@ -64,7 +64,7 @@ def delete_user_in_db(user_id: int, session: Session) -> None:
     if not user_db:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
-            detail='This user not exists!'
+            detail='This user does not exist!'
         )
 
     session.delete(user_db)
@@ -79,7 +79,7 @@ def get_user_by_id_in_db(user_id: int, session: Session) -> UserResponse:
     if not user_db:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
-            detail='This user not exists!'
+            detail='This user does not exist!'
         )
 
     return user_db
