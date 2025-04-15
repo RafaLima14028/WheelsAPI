@@ -166,15 +166,24 @@
 
 2. Create a `.env` file with the required variables.
 
-3. Build and start the application using Docker:
+   - `DATABASE_URL`
+   - `PRIVATE_KEY_PASSWORD`
+   - `EXPIRE_TIME_JWT`
+
+3. Create public and private keys.
 
 ```bash
 mkdir .ssh
 ssh-keygen -t rsa
+```
+
+4. Build and start the application using Docker:
+
+```bash
 docker compose up --build
 ```
 
-4. Access the API documentation at `http://localhost:8000/docs`.
+5. Access the API documentation at `http://localhost:8000/docs`.
 
 ## Structure of Project:
 
@@ -182,6 +191,7 @@ This repository follows a modular and scalable architecture to ensure ease of de
 
 ```
 WheelsAPI/
+├── .ssh
 ├── .venv
 ├── app/
 │   ├── main.py
