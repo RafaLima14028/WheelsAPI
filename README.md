@@ -93,8 +93,9 @@
 5. **Authentication and Authorization:**
 
    - [x] Implement JWT
-   - [ ] Implement endpoints for auth
+   - [x] Implement endpoints for auth
    - [ ] Configure JWT system with refresh tokens
+   - [ ] Implement JWT in others endpoints
    - [ ] Define access levels (buyers, sellers, admin)
 
 6. **Business Features:**
@@ -167,23 +168,16 @@
 2. Create a `.env` file with the required variables.
 
    - `DATABASE_URL`
-   - `PRIVATE_KEY_PASSWORD`
+   - `PRIVATE_KEY`
    - `EXPIRE_TIME_JWT`
 
-3. Create public and private keys.
-
-```bash
-mkdir .ssh
-ssh-keygen -t rsa
-```
-
-4. Build and start the application using Docker:
+3. Build and start the application using Docker:
 
 ```bash
 docker compose up --build
 ```
 
-5. Access the API documentation at `http://localhost:8000/docs`.
+4. Access the API documentation at `http://localhost:8000/docs`.
 
 ## Structure of Project:
 
@@ -191,11 +185,11 @@ This repository follows a modular and scalable architecture to ensure ease of de
 
 ```
 WheelsAPI/
-├── .ssh
 ├── .venv
 ├── app/
 │   ├── main.py
 │   ├── api/
+│   │   ├── auth.py
 │   │   ├── sales.py
 │   │   ├── users.py
 │   │   └── vehicles.py
@@ -211,6 +205,7 @@ WheelsAPI/
 │   │   ├── users.py
 │   │   └── vehicles.py
 │   ├── schemas/
+│   │   ├── auth.py
 │   │   ├── generic.py
 │   │   ├── sales.py
 │   │   ├── users.py

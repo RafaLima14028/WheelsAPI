@@ -5,10 +5,10 @@ from loguru import logger
 
 from app.schemas.generic import Message
 
+from app.api.auth import router as router_auth
 from app.api.users import router as router_users
 from app.api.vehicles import router as router_vehicles
 from app.api.sales import router as router_sales
-
 
 logger.add(
     'logs/file_log.log',
@@ -31,6 +31,7 @@ app = FastAPI(
     lifespan=app_lifespan
 )
 
+app.include_router(router_auth)
 app.include_router(router_users)
 app.include_router(router_vehicles)
 app.include_router(router_sales)

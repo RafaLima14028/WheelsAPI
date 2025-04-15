@@ -1,5 +1,8 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Depends
 from http import HTTPStatus
+
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 import bcrypt
 import jwt
@@ -9,6 +12,8 @@ from cryptography.hazmat.primitives import serialization
 from datetime import datetime, timedelta
 
 from app.core.settings import Settings
+from app.db.session import get_db
+from app.models.users import User
 
 
 def hash_password(password: str) -> str:
@@ -31,14 +36,6 @@ def check_hashed_password(password: str, hashed_password: str) -> bool:
 
 
 def create_access_token(email: str) -> str:
-    password = Settings().PRIVATE_KEY_PASSWORD.encode()
-
-    private_key = open(".ssh/id_rsa", 'r').read()
-    key = serialization.load_ssh_private_key(
-        private_key.encode(),
-        password=password
-    )
-
     exp = datetime.now() + timedelta(
         minutes=Settings().EXPIRE_TIME_JWT
     )
@@ -50,25 +47,20 @@ def create_access_token(email: str) -> str:
 
     token = jwt.encode(
         payload=payload,
-        key=key,
-        algorithm='RS256'
+        key=Settings().PRIVATE_KEY,
+        algorithm='HS256'
     )
 
     return token
 
 
-def get_current_user(token: str) -> str:
+def get_current_user(token: str, session: Session = Depends(get_db)) -> str:
     header_data = jwt.get_unverified_header(token)
-
-    public_key = open(".ssh/id_rsa.pub", 'r').read()
-    key = serialization.load_ssh_public_key(
-        public_key.encode()
-    )
 
     try:
         payload: dict = jwt.decode(
             token,
-            key=key,
+            key=Settings().PRIVATE_KEY,
             algorithms=[header_data['alg'], ]
         )
 
@@ -87,6 +79,16 @@ def get_current_user(token: str) -> str:
         raise HTTPException(
             status_code=HTTPStatus.UNAUTHORIZED,
             detail='An error occurred!'
+        )
+
+    user_db = session.scalar(
+        select(User).where(User.email == email)
+    )
+
+    if not user_db:
+        raise HTTPException(
+            status_code=HTTPStatus.UNAUTHORIZED,
+            detail='Invalid authentication credentials!'
         )
 
     return email
