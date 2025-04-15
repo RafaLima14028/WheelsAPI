@@ -9,3 +9,5 @@ class Settings(BaseSettings):
     )
 
     DATABASE_URL: str
+    PRIVATE_KEY_PASSWORD: str
+    EXPIRE_TIME_JWT: int

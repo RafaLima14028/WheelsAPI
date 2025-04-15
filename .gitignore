@@ -64,3 +64,4 @@ Thumbs.db
 # datas
 logs/
 tests/
+.ssh/

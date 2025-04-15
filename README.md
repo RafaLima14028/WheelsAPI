@@ -92,7 +92,7 @@
 
 5. **Authentication and Authorization:**
 
-   - [ ] Implement JWT
+   - [x] Implement JWT
    - [ ] Implement endpoints for auth
    - [ ] Configure JWT system with refresh tokens
    - [ ] Define access levels (buyers, sellers, admin)
@@ -108,6 +108,7 @@
    - [ ] Configure background tasks with Celery or FastAPI background tasks
    - [ ] Implement notifications and alerts (RabbitMQ)
    - [ ] Develop periodic report generation
+   - [ ] Configure RabbitMQ in Docker
 
 8. **Events and Lifecycle Integration:**
 
@@ -153,10 +154,10 @@
 
 15. **Deployment and Containerization:**
 
-    - [ ] Dockerize the application
-    - [ ] Configure Docker Compose for development
-      - [ ] Configure the database
-      - [ ] Configure the application
+    - [x] Dockerize the application
+    - [x] Configure Docker Compose for development
+      - [x] Configure the database
+      - [x] Configure the application
     - [ ] Prepare for deployment in production environments
 
 ## How to Run:
@@ -168,6 +169,8 @@
 3. Build and start the application using Docker:
 
 ```bash
+mkdir .ssh
+ssh-keygen -t rsa
 docker compose up --build
 ```
 
@@ -187,6 +190,10 @@ WheelsAPI/
 │   │   ├── users.py
 │   │   └── vehicles.py
 │   ├── core/
+│   │   ├── errors/
+│   │   │   ├── sales_errors.py
+│   │   │   ├── users_errors.py
+│   │   │   └── vahicles_errors.py
 │   │   ├── securrity.py
 │   │   └── logging.py
 │   ├── models/
@@ -199,6 +206,7 @@ WheelsAPI/
 │   │   ├── users.py
 │   │   └── vehicles.py
 │   ├── crud/
+│   │   ├── sales.py
 │   │   ├── users.py
 │   │   └── vehicles.py
 │   └── db/
