@@ -94,7 +94,7 @@
 
    - [x] Implement JWT
    - [x] Implement endpoints for auth
-   - [ ] Configure JWT system with refresh tokens
+   - [x] Configure JWT system with refresh tokens
    - [ ] Implement JWT in others endpoints
    - [ ] Define access levels (buyers, sellers, admin)
 

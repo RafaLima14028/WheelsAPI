@@ -7,13 +7,13 @@ from sqlalchemy.orm import Session
 import bcrypt
 import jwt
 from jwt.exceptions import ExpiredSignatureError, DecodeError, PyJWTError
-from cryptography.hazmat.primitives import serialization
 
 from datetime import datetime, timedelta
 
 from app.core.settings import Settings
 from app.db.session import get_db
 from app.models.users import User
+from app.schemas.users import UserResponse
 
 
 def hash_password(password: str) -> str:
@@ -54,7 +54,7 @@ def create_access_token(email: str) -> str:
     return token
 
 
-def get_current_user(token: str, session: Session = Depends(get_db)) -> str:
+def get_current_user(token: str, session: Session = Depends(get_db)) -> User:
     header_data = jwt.get_unverified_header(token)
 
     try:
@@ -91,4 +91,4 @@ def get_current_user(token: str, session: Session = Depends(get_db)) -> str:
             detail='Invalid authentication credentials!'
         )
 
-    return email
+    return user_db
