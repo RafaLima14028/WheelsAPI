@@ -9,9 +9,9 @@ class UserCreate(BaseModel):
 
 
 class UserUpdate(BaseModel):
-    name: Optional[str]
-    password: Optional[str]
-    email: Optional[EmailStr]
+    name: Optional[str] = None
+    password: Optional[str] = None
+    email: Optional[EmailStr] = None
 
 
 class UserResponse(BaseModel):

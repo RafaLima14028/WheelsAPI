@@ -36,7 +36,9 @@ class Vehicle:
         ENUM(TypesVehicle, create_type=True, name="types_vehicle"),
         nullable=False
     )
-    id_user: Mapped[int] = mapped_column(ForeignKey('users.id'))
+    id_user: Mapped[int] = mapped_column(
+        ForeignKey('users.id', ondelete='CASCADE')
+    )
 
 
 @Base.mapped_as_dataclass
@@ -51,6 +53,6 @@ class VehicleImg:
     )
     img_base64: Mapped[str] = mapped_column()
     id_vehicle: Mapped[int] = mapped_column(
-        ForeignKey('vehicles.id'),
+        ForeignKey('vehicles.id', ondelete='CASCADE'),
         nullable=False
     )

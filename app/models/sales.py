@@ -17,7 +17,7 @@ class Sale:
         init=False
     )
     id_vehicle: Mapped[int] = mapped_column(
-        ForeignKey('vehicles.id'),
+        ForeignKey('vehicles.id', ondelete='CASCADE'),
         nullable=False
     )
     value: Mapped[float] = mapped_column(nullable=False)

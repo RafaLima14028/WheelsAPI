@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from http import HTTPStatus
 
 from sqlalchemy.orm import Session
@@ -25,6 +25,8 @@ from app.core.errors.vehicles_errors import (
     UNPROCESSABLE_ENTITY_RESPONSE,
     INTERNAL_SERVER_ERROR_RESPONSE
 )
+from app.models.users import User
+from app.core.security import get_current_user
 
 
 router = APIRouter(prefix="/vehicles", tags=["Vehicles"])
@@ -36,8 +38,15 @@ router = APIRouter(prefix="/vehicles", tags=["Vehicles"])
 })
 def create_vehicle(
     vehicle: VehicleCreateRequest,
+    user: User = Depends(get_current_user),
     session: Session = Depends(get_db)
 ):
+    if vehicle.vehicle.id_user != user.id:
+        raise HTTPException(
+            status_code=HTTPStatus.UNAUTHORIZED,
+            detail='Divergent data!'
+        )
+
     vehicle_db = create_vehicle_in_db(
         vehicle.vehicle,
         vehicle.image,
@@ -54,8 +63,15 @@ def create_vehicle(
 def update_vehicle(
     vehicle_id: int,
     vehicle: VehicleUpdate,
+    user: User = Depends(get_current_user),
     session: Session = Depends(get_db)
 ):
+    if vehicle_id != user.id:
+        raise HTTPException(
+            status_code=HTTPStatus.UNAUTHORIZED,
+            detail='Divergent data!'
+        )
+
     vehicle_db = update_vehicle_in_db(vehicle_id, vehicle, session)
 
     return vehicle_db
@@ -65,7 +81,17 @@ def update_vehicle(
     **NOT_FOUND_RESPONSE,
     **INTERNAL_SERVER_ERROR_RESPONSE
 })
-def delete_vehicle(vehicle_id: int, session: Session = Depends(get_db)):
+def delete_vehicle(
+    vehicle_id: int,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_db)
+):
+    if vehicle_id != user.id:
+        raise HTTPException(
+            status_code=HTTPStatus.UNAUTHORIZED,
+            detail='Divergent data!'
+        )
+
     delete_vehicle_in_db(vehicle_id, session)
 
     return Message(message='Vehicle deleted with successfully!')

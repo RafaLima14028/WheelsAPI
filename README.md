@@ -86,6 +86,7 @@
        - [x] Update info about ad
        - [x] Delete ad
        - [x] Get ad
+       - [x] Get sales vehicles
    - [x] Document API with Swagger/OpenAPI
    - [x] Fild email in user will be validate
    - [x] Update user not do hash in password
@@ -96,7 +97,8 @@
    - [x] Implement endpoints for auth
    - [x] Configure JWT system with refresh tokens
    - [ ] Implement JWT in others endpoints
-   - [ ] Define access levels (buyers, sellers, admin)
+   - [ ] Define access levels (buyers or sellers)
+   - [ ] Update README.md
 
 6. **Business Features:**
 
@@ -159,6 +161,7 @@
     - [x] Configure Docker Compose for development
       - [x] Configure the database
       - [x] Configure the application
+      - [ ] Configure the Nginx
     - [ ] Prepare for deployment in production environments
 
 ## How to Run:
