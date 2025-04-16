@@ -26,20 +26,20 @@ class VehicleCreateRequest(BaseModel):
 
 
 class VehicleResponse(BaseModel):
-    id: Optional[int]
-    brand: Optional[str]
-    model: Optional[str]
-    color: Optional[str]
-    year_model: Optional[int]
-    plate: Optional[str]
+    id: Optional[int] = None
+    brand: Optional[str] = None
+    model: Optional[str] = None
+    color: Optional[str] = None
+    year_model: Optional[int] = None
+    plate: Optional[str] = None
 
 
 class VehicleUpdate(BaseModel):
-    brand: Optional[str]
-    model: Optional[str]
-    mileage: Optional[int]
-    color: Optional[str]
-    year_manufacture: Optional[int]
-    year_model: Optional[int]
-    plate: Optional[str]
-    type: Optional[TypesVehicle]
+    brand: Optional[str] = None
+    model: Optional[str] = None
+    mileage: Optional[int] = None
+    color: Optional[str] = None
+    year_manufacture: Optional[int] = None
+    year_model: Optional[int] = None
+    plate: Optional[str] = None
+    type: Optional[TypesVehicle] = None

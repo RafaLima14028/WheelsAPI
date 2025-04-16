@@ -96,12 +96,13 @@
    - [x] Implement JWT
    - [x] Implement endpoints for auth
    - [x] Configure JWT system with refresh tokens
-   - [ ] Implement JWT in others endpoints
+   - [x] Implement JWT in others endpoints
    - [ ] Define access levels (buyers or sellers)
    - [ ] Update README.md
 
 6. **Business Features:**
 
+   - [ ] Add paging in sales endpoint
    - [ ] Implement search system and filters for vehicles
    - [ ] Create endpoints for listing management
    - [ ] Develop favorites system and viewing history

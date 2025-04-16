@@ -12,8 +12,21 @@ class AdUpdate(BaseModel):
 
 
 class AdResponse(BaseModel):
-    id: Optional[int]
-    id_vehicle: Optional[int]
-    value: Optional[float]
-    value_fipe: Optional[float]
-    difference_between_value_and_fipe: Optional[float]
+    id: Optional[int] = None
+    id_vehicle: Optional[int] = None
+    value: Optional[float] = None
+    value_fipe: Optional[float] = None
+    difference_between_value_and_fipe: Optional[float] = None
+
+
+class VehicleSaleResponse(BaseModel):
+    id_vehicle: Optional[int] = None
+    id_sale: Optional[int] = None
+    brand: Optional[str] = None
+    model: Optional[str] = None
+    color: Optional[str] = None
+    year_model: Optional[int] = None
+    plate: Optional[str] = None
+    value: Optional[float] = None
+    value_fipe: Optional[float] = None
+    difference_between_value_and_fipe: Optional[float] = None
