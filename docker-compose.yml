@@ -12,6 +12,8 @@ services:
       - postgres_data:/var/lib/postgres/data
     ports:
       - "5433:5432"
+    networks:
+      - internal
 
   application:
     image: wheelsapi:0.0.2
@@ -26,6 +28,8 @@ services:
       - database
     environment:
       DATABASE_URL: postgresql+psycopg2://postgres:4845d91eb156d325aa6da14f6@db_postgres:5432/wheelsDB
+    networks:
+      - internal
     develop:
       watch:
         - action: sync
@@ -34,3 +38,7 @@ services:
 
 volumes:
   postgres_data:
+
+networks:
+  internal:
+    driver: bridge
