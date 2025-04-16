@@ -8,12 +8,17 @@ from app.db.session import get_db
 from app.models.users import User
 from app.schemas.auth import Login, Token
 from app.core.security import create_access_token, get_current_user, check_hashed_password
+from app.core.errors.auth_errors import (
+    UNAUTHORIZED_RESPONSE
+)
 
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
-@router.post("/", response_model=Token)
+@router.post("/", response_model=Token, responses={
+    **UNAUTHORIZED_RESPONSE
+})
 def create_token(login: Login, session: Session = Depends(get_db)):
     user_db = session.scalar(
         select(User).where(

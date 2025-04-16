@@ -97,7 +97,7 @@
    - [x] Implement endpoints for auth
    - [x] Configure JWT system with refresh tokens
    - [x] Implement JWT in others endpoints
-   - [ ] Define access levels (buyers or sellers)
+   - [x] Update errors
    - [ ] Update README.md
 
 6. **Business Features:**

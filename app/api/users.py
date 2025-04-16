@@ -15,6 +15,7 @@ from app.crud.users import (
     get_user_by_id_in_db
 )
 from app.core.errors.users_errors import NOT_FOUND_RESPONSE
+from app.core.errors.security_errors import UNAUTHORIZED_ENTITY_RESPONSE
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -28,7 +29,8 @@ def create_user(user_data: UserCreate, session: Session = Depends(get_db)):
 
 
 @router.patch("/{user_id}/", response_model=UserResponse, responses={
-    **NOT_FOUND_RESPONSE
+    **NOT_FOUND_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def update_user(
     user_id: int,
@@ -48,7 +50,8 @@ def update_user(
 
 
 @router.delete("/{user_id}/", response_model=Message, responses={
-    **NOT_FOUND_RESPONSE
+    **NOT_FOUND_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def delete_user(
     user_id: int,
@@ -67,7 +70,8 @@ def delete_user(
 
 
 @router.get("/{user_id}/", response_model=UserResponse, responses={
-    **NOT_FOUND_RESPONSE
+    **NOT_FOUND_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def get_user_by_id(
     user_id: int,

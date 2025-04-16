@@ -25,6 +25,7 @@ from app.core.errors.vehicles_errors import (
     UNPROCESSABLE_ENTITY_RESPONSE,
     INTERNAL_SERVER_ERROR_RESPONSE
 )
+from app.core.errors.security_errors import UNAUTHORIZED_ENTITY_RESPONSE
 from app.models.users import User
 from app.core.security import get_current_user
 
@@ -34,7 +35,8 @@ router = APIRouter(prefix="/vehicles", tags=["Vehicles"])
 
 @router.post("/", response_model=VehicleResponse, responses={
     **NOT_FOUND_RESPONSE,
-    **UNPROCESSABLE_ENTITY_RESPONSE
+    **UNPROCESSABLE_ENTITY_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def create_vehicle(
     vehicle: VehicleCreateRequest,
@@ -58,7 +60,8 @@ def create_vehicle(
 
 @router.patch("/{vehicle_id}/", response_model=VehicleUpdate, responses={
     **NOT_FOUND_RESPONSE,
-    **INTERNAL_SERVER_ERROR_RESPONSE
+    **INTERNAL_SERVER_ERROR_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def update_vehicle(
     vehicle_id: int,
@@ -79,7 +82,8 @@ def update_vehicle(
 
 @router.delete("/{vehicle_id}/", response_model=Message, responses={
     **NOT_FOUND_RESPONSE,
-    **INTERNAL_SERVER_ERROR_RESPONSE
+    **INTERNAL_SERVER_ERROR_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def delete_vehicle(
     vehicle_id: int,

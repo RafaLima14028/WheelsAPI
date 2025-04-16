@@ -19,6 +19,7 @@ from app.core.errors.sales_errors import (
     NOT_FOUND_RESPONSE,
     NOT_FOUND_VEHICLE_ID_RESPONSE
 )
+from app.core.errors.security_errors import UNAUTHORIZED_ENTITY_RESPONSE
 from app.models.users import User
 from app.models.vehicles import TypesVehicle, Vehicle
 from app.models.sales import Sale
@@ -52,7 +53,8 @@ def create_ad(
 
 
 @router.patch("/{ad_id}/", response_model=AdResponse, responses={
-    **NOT_FOUND_RESPONSE
+    **NOT_FOUND_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def update_ad(
     ad_id: int,
@@ -78,20 +80,34 @@ def update_ad(
 
 
 @router.delete("/{ad_id}/", response_model=Message, responses={
-    **NOT_FOUND_RESPONSE
+    **NOT_FOUND_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def delete_ad(
     ad_id: int,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_db)
 ):
+    vehicle_db = session.execute(
+        select(Vehicle)
+        .join(Vehicle, Sale.id_vehicle == Vehicle.id)
+        .where(Sale.id == ad_id)
+    )
+
+    if vehicle_db.id_user != user.id:
+        raise HTTPException(
+            status_code=HTTPStatus.UNAUTHORIZED,
+            detail='Divergent data!'
+        )
+
     delete_ad_in_db(ad_id, session)
 
     return Message(message='Ad deleted successfully!')
 
 
 @router.get("ad/{ad_id}/", response_model=AdResponse, responses={
-    **NOT_FOUND_RESPONSE
+    **NOT_FOUND_RESPONSE,
+    **UNAUTHORIZED_ENTITY_RESPONSE
 })
 def get_ad_by_id(
     ad_id: int,
