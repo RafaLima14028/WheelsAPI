@@ -16,7 +16,7 @@ services:
       - internal
 
   application:
-    image: wheelsapi:0.0.2
+    image: wheelsapi:0.0.3
     container_name: application_wheelsapi
     build:
       context: .

@@ -98,7 +98,7 @@
    - [x] Configure JWT system with refresh tokens
    - [x] Implement JWT in others endpoints
    - [x] Update errors
-   - [ ] Update README.md
+   - [x] Update README.md
 
 6. **Business Features:**
 
@@ -199,11 +199,12 @@ WheelsAPI/
 │   │   └── vehicles.py
 │   ├── core/
 │   │   ├── errors/
+│   │   │   ├── auth_errors.py
 │   │   │   ├── sales_errors.py
 │   │   │   ├── users_errors.py
 │   │   │   └── vahicles_errors.py
 │   │   ├── securrity.py
-│   │   └── logging.py
+│   │   └── settings.py
 │   ├── models/
 │   │   ├── sales.py
 │   │   ├── users.py
