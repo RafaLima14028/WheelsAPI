@@ -102,10 +102,8 @@
 
 6. **Business Features:**
 
-   - [ ] Add paging in sales endpoint
-   - [ ] Implement search system and filters for vehicles
-   - [ ] Create endpoints for listing management
-   - [ ] Develop favorites system and viewing history
+   - [x] Add paging in sales endpoint
+   - [x] Implement search system and filters for vehicles
 
 7. **Asynchronous Processing:**
 

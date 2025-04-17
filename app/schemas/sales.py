@@ -30,3 +30,12 @@ class VehicleSaleResponse(BaseModel):
     value: Optional[float] = None
     value_fipe: Optional[float] = None
     difference_between_value_and_fipe: Optional[float] = None
+
+
+class GetSalesVehiclesResponse(BaseModel):
+    vehicles: list[VehicleSaleResponse] = []
+    nextUrl: Optional[str] = None
+    previousUrl: Optional[str] = None
+    limit: int
+    offset: int
+    totalRegistries: int

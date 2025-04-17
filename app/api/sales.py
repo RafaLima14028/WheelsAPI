@@ -7,7 +7,13 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.schemas.generic import Message
-from app.schemas.sales import AdCreate, AdResponse, AdUpdate, VehicleSaleResponse
+from app.schemas.sales import (
+    AdCreate,
+    AdResponse,
+    AdUpdate,
+    VehicleSaleResponse,
+    GetSalesVehiclesResponse
+)
 from app.db.session import get_db
 from app.crud.sales import (
     create_ad_in_db,
@@ -131,7 +137,7 @@ def get_ad_by_id(
     return ad_db
 
 
-@router.get("/sales-vehicles/", response_model=list[VehicleSaleResponse])
+@router.get("/sales-vehicles/", response_model=GetSalesVehiclesResponse)
 def get_sales_vehicles(
     limit: int = 10,
     offset: int = 0,
@@ -139,9 +145,22 @@ def get_sales_vehicles(
     min_year: Optional[int] = None,
     max_year: Optional[int] = None,
     max_mileage: Optional[int] = None,
+    min_value: Optional[float] = None,
+    max_value: Optional[float] = None,
     color: Optional[str] = None,
     session: Session = Depends(get_db)
 ):
+    total_registries: int = session.query(Sale).count()
+
+    next = offset + limit
+    next_url: str = None
+
+    if next < total_registries:
+        next_url = f'sales/sales-vehicles/?limit={limit}&offset={next}'
+
+    previous = None if offset - limit < 0 else offset - limit
+    previous_url: str = f'sales/sales-vehicles/?limit={limit}&offset={next}' if previous is not None else None
+
     query = select(Vehicle, Sale).join(Sale, Vehicle.id == Sale.id_vehicle)
 
     if type:
@@ -154,6 +173,10 @@ def get_sales_vehicles(
         query = query.where(Vehicle.mileage <= max_mileage)
     if color:
         query = query.where(Vehicle.color == color)
+    if min_value:
+        query = query.where(Sale.value >= min_value)
+    if max_value:
+        query = query.where(Sale.value <= max_value)
 
     query = query.limit(limit).offset(offset)
 
@@ -177,4 +200,11 @@ def get_sales_vehicles(
             )
         )
 
-    return response
+    return GetSalesVehiclesResponse(
+        vehicles=response,
+        nextUrl=next_url,
+        previousUrl=previous_url,
+        limit=limit,
+        offset=offset,
+        totalRegistries=total_registries
+    )
